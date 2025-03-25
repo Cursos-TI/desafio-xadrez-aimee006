@@ -1,54 +1,71 @@
 #include <stdio.h>
 
-int main() {
-    int casas = 0;
-    int movimentoL = 1;
+// Função recursiva para o movimento da torre
+void torre(int casas) {
 
-    // 1. Torre se move 5 casas para a direita
-
-    while (casas < 5) {
+    if (casas > 0) {
         printf("\nTORRE para a DIREITA"); // Direção do movimento da torre
-
-        casas++;
+        torre (casas - 1);
     }
+    
+}
 
-    printf("\n_____________________________________________\n");
+// Função recursiva para o movimento do bispo
+void bispo(int casas) {
+    
+    int casasPercorridas = 0;
 
-    // 2. Bispo se move 5 casas na diagonal para cima e à direita
+    for (int cima = 0; cima < casas; cima++) { // Movimento para cima
 
-    casas = 0;
-
-    do {
-        printf("\nBISPO para CIMA DIREITA"); // Direção do movimento do bispo
-
-        casas++;
-    } while (casas < 5);
-
-    printf("\n_____________________________________________\n");
-
-    // 3. Rainha se move 8 casas para a esquerda
-
-    casas = 0;
-
-    for (casas = 0; casas < 8; casas++) {
-        printf("\nRAINHA para a ESQUERDA"); // Direção do movimento da rainha
-    }
-
-    printf("\n_____________________________________________\n");
-
-    // 4. Cavalo se move 2 casas para baixo e 1 casa para a esquerda (movimento em L)
-
-    casas = 0;
-
-    while (movimentoL--) {
-
-        // Direção do movimento em L do cavalo para baixo (Duas casas para baixo)
-        for (casas = 0; casas < 2; casas++) {
-            printf("\nCAVALO para BAIXO");
+        for (int direita = 0; direita < casas; direita++) { // Movimento para a direita
+            printf("\nBISPO para CIMA DIREITA"); // Direção do movimento do bispo
+            casasPercorridas++;
+            
+            if (casasPercorridas >= 5) {
+                return;
+            }
         }
 
-        // Direção do movimento em L do cavalo para a esquerda (Uma casa para a esquerda)
-        printf("\nCAVALO para a ESQUERDA");
+    }
+
+}
+
+// Função recursiva para o movimento da rainha
+void rainha(int casas) {
+
+    if (casas > 0) {
+        printf("\nRAINHA para a ESQUERDA"); // Direção do movimento da rainha
+        rainha(casas - 1);
+    }
+
+}
+
+int main() {
+    int movimentoL = 1;
+
+    torre(5);
+    printf("\n_____________________________________________\n");
+
+    bispo(5);
+    printf("\n_____________________________________________\n");
+
+    rainha(8);
+    printf("\n_____________________________________________\n");
+
+    // Cavalo se move 2 casas para baixo e 1 casa para a esquerda (movimento em L)
+    for (int casas = 0; casas < movimentoL; casas++) {
+
+        for (int direcao = 0; direcao < 3; direcao++) {
+
+            if (direcao < 2) {
+                printf("\nCAVALO para CIMA"); // Movimento para cima
+                continue;
+            }
+            printf("\nCAVALO para a DIREITA"); // Movimento para a direita
+            break;
+            
+        }
+
     }
 
     printf("\n_____________________________________________\n");
